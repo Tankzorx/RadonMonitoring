@@ -1,10 +1,11 @@
 var mqtt    = require('mqtt');
 var client  = mqtt.connect('mqtt://localhost:1883');
- 
+
+
+
 client.on('connect', function () {
-  client.subscribe('presence');
-  client.publish("presence","ABCD");
-  // client.publish('presence', 'Hello mqtt',{qos : 1});
+  // client.subscribe('some_device_id');
+  publish_simulation(client,publish_simulation);
 });
  
 client.on('message', function (topic, message) {
@@ -12,3 +13,11 @@ client.on('message', function (topic, message) {
   console.log(message.toString());
   client.end();
 });
+
+function publish_simulation(client,cb) {
+	setTimeout(function() {
+		client.publish("some_device_id",(Math.random()*1000).toString());
+		console.log("Published!");
+		cb(client,cb);
+	}, 500);
+}

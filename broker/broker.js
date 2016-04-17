@@ -21,10 +21,8 @@ server.on('clientConnected', function(client) {
 
 // fired when a message is received
 server.on('published', function(packet, client) {
-  if (client) {
-    console.log("client subs: ", client.subscriptions)
-  }
-  console.log('Published', packet.payload.toString());
+
+  console.log('Received Message: ', packet.payload.toString());
 });
 
 server.on('ready', setup);
